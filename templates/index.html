@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <div id="map">
+    </div>
+
+    <script>
+
+        // Initialize and add the map
+        function initMap() {
+            // My position
+            var myposition = {lat: 4.687201, lng: -74.049239};
+            // The map, centered at myposition
+            var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: myposition});
+            // The marker, positioned at myposition
+            var marker = new google.maps.Marker({position: myposition, map: map});
+            setMarkers(map);
+
+            infoWindow = new google.maps.InfoWindow;
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Location found.');
+                    infoWindow.open(map);
+                    map.setCenter(pos);
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+
+        function setMarkers(map) {
+            var shopImage = '/static/bike-shop.png';
+            var shops = {{ shops|tojson }};
+            var activeinfowindow;
+            for (var i = 0; i < shops.length; i++) {
+                let point = shops[i];
+                let contentString = `<div id="content">
+                    <h1 id="firstHeading" class="firstHeading"> ${point['shopName']} </h1>
+                    <div id="bodyContent"> <b> ${point['shopAddress']} </b> </div>
+                    </div>`;
+                let infowindow = new google.maps.InfoWindow({
+                    content: contentString,
+                    maxWidth: 200
+                });
+                let marker = new google.maps.Marker({
+                    position: {lat: point['shopLatitude'], lng: point['shopLongitude']},
+                    map: map,
+                    icon: shopImage,
+                    title: point['shopName'],
+                    draggable: true,
+                    animation: google.maps.Animation.DROP
+                });
+                marker.addListener('click', function () {
+                    if (activeinfowindow) {
+                        activeinfowindow.close();
+                    }
+                    map.setZoom(17);
+                    map.setCenter(marker.getPosition());
+                    infowindow.open(map, marker);
+                    activeinfowindow = infowindow;
+                });
+            }
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD86jevTtP1vkg95TkY9i7hGA0045N7Fj4&callback=initMap">
+    </script>
+
+    <!-- TODO
+{#
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card text-white bg-dark mb-3">
+        <div class="card-header"><h5>Username</h5></div>
+          <div class="card-body">
+            <p class="card-text">{{ userInfo[0]["username"] }}</p>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card text-white bg-dark mb-3">
+        <div class="card-header"><h5>Latitude</h5></div>
+          <div class="card-body">
+            <p class="card-text">{{ userInfo[0]["latitude"] }}</p>
+          </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card text-white bg-dark mb-3">
+        <div class="card-header"><h5>Longitude</h5></div>
+          <div class="card-body">
+            <p class="card-text">{{ userInfo[0]["longitude"] }}</p>
+          </div>
+      </div>
+    </div>
+  </div>
+
+#}
+-->
+{% endblock %}

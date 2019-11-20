@@ -1,0 +1,134 @@
+#map
+{
+    height: 400px;
+    width: 100%;
+}
+
+nav .navbar-brand
+{
+    /* size for brand */
+    font-size: xx-large;
+}
+
+/* colors for brand */
+nav .navbar-brand .blue
+{
+    color: #537fbe;
+}
+nav .navbar-brand .red
+{
+    color: #ea433b;
+}
+nav .navbar-brand .yellow
+{
+    color: #f5b82e;
+}
+nav .navbar-brand .green
+{
+    color: #2e944b;
+}
+
+main .form-control
+{
+    /* center form controls */
+    display: inline-block;
+
+    /* override Bootstrap's 100% width for form controls */
+    width: auto;
+}
+
+main .btn
+{
+    background-color: #064E56;
+}
+
+
+.box
+{
+    left: 50%;
+    transform: translate(-50%);
+    position: static;
+    z-index: 5;
+}
+
+.num
+{
+    position: absolute;
+    top: 0;
+    right: -5px;
+    left: 24px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: red;
+    color: #fff;
+    line-height: 17px;
+    font-family: sans-serif;
+    text-align: center;
+
+}
+
+.notifications
+{
+    width: 30px;
+    height: 30px;
+    background: #FFD600;
+    border-radius: 100px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+
+.notifications .num
+{
+    position: absolute;
+    top: 0;
+    right: -5px;
+    left: 24px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: red;
+    color: #fff;
+    line-height: 17px;
+    font-family: sans-serif;
+    text-align: center;
+
+}
+
+.notifications .fas
+{
+    color:#6F6F6F;
+    line-height: 30px;
+    font-size: 24px;
+}
+
+.list-group
+{
+    list-style: none;
+    position: relative;
+    z-index: 6;
+    width: 120px;
+}
+
+.list-group .list-group-item
+{
+    position: relative;
+    width: auto;
+    z-index: 7;
+}
+
+main
+{
+    /* scroll horizontally as needed */
+    overflow-x: auto;
+
+    /* center contents */
+    text-align: center;
+}
+
+main img
+{
+    /* constrain images on small screens */
+    max-width: 100%;
+}

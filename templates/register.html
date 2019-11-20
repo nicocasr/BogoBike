@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="username" id="casta" placeholder="Username" type="text">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="name" placeholder="Name" type="text">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="city" placeholder="City" type="text">
+        </div>
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="address" placeholder="Address" type="text">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="mail" placeholder="Mail" type="email">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="password" placeholder="Password" type="password">
+        </div>
+        <div class="form-group">
+            <input class="form-control" name="confirmation" placeholder="Confirmation Password" type="password">
+        </div>
+        <p id="demo"></p>
+        <button class="btn btn-primary" type="submit">Register</button>
+
+    </form>
+    <script>
+        var myForm = document.querySelector('form');
+        myForm.onsubmit = function(formx){
+            var username = $("#casta");
+            formx.preventDefault();
+            function check(resultx){
+                if (resultx == false){
+                    alert("Username has been used");
+                }
+                else{
+                    myForm.submit();
+                }
+            }
+
+            if (username.val()) {
+                $.get("/checkUsername", { username: username.val() }, check);
+            }
+            else{
+                alert("Most provide username");
+            }
+        };
+    </script>
+{% endblock %}

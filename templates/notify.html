@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Notify
+{% endblock %}
+
+{% block main %}
+    <form action="/notify" method="post" id="notify">
+        <div class="form-group">
+        <select autofocus class="form-control" name="notify" placeholder="notify">
+            <option disabled selected>Notification</option>
+            <option value="Stranded">Stranded</option>
+            <option value="Robbed">Robbed</option>
+            <option value="Road Being Repaired">Road being repaired</option>
+            <option value="Crash">Crash</option>
+            <option value="Roadblock">Roadblock</option>
+        </select>
+        </div>
+        <button class="btn btn-primary" type="submit" id="notify_button">Notify</button>
+    </form>
+
+
+    <script>
+        var myForm = document.querySelector('#notify');
+        myForm.onsubmit = function(notif){
+            $.ajax("/notify")
+                .done(function(){
+                    alert("Notification sent!");
+                })
+                .fail(function(){
+                    alert("Coudn't notify!");
+                });
+
+        };
+
+
+
+    </script>
+{% endblock %}
