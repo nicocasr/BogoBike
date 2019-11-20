@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="be254d7d-b3b6-4311-bf65-c0ebe96d5992" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Notifications.py" beforeDir="false" afterPath="$PROJECT_DIR$/Notifications.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bogobike.db" beforeDir="false" afterPath="$PROJECT_DIR$/bogobike.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -83,7 +86,7 @@
     </configuration>
     <configuration name="BogoBike" type="Python.FlaskServer">
       <module name="BogoBike" />
-      <option name="target" value="$PROJECT_DIR$/application.py" />
+      <option name="target" value="$PROJECT_DIR$/oldapplication.py" />
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -152,7 +155,7 @@
       <workItem from="1573934875581" duration="6848000" />
       <workItem from="1574089186853" duration="9064000" />
       <workItem from="1574100890055" duration="2292000" />
-      <workItem from="1574256146538" duration="16948000" />
+      <workItem from="1574256146538" duration="18659000" />
     </task>
     <servers />
   </component>
@@ -200,6 +203,6 @@
     <SUITE FILE_PATH="coverage/BogoBike$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1573924547576" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/BogoBike$ejemplo.coverage" NAME="ejemplo Coverage Results" MODIFIED="1573924769959" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/BogoBike$app.coverage" NAME="app Coverage Results" MODIFIED="1574086464478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/BogoBike$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1574278292668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/BogoBike$Flask__app_py_.coverage" NAME="Flask (app.py) Coverage Results" MODIFIED="1574286356660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

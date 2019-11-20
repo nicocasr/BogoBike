@@ -60,3 +60,9 @@ class Notifications:
             return False
         else:
             return True
+
+    def __checkUserInDict(self, userId):
+        if userId in self.allnotifications:
+            return True
+        else:
+            return False
