@@ -16,8 +16,6 @@
             var myposition = {lat: 4.687201, lng: -74.049239};
             // The map, centered at myposition
             var map = new google.maps.Map(document.getElementById('map'), {zoom: 13, center: myposition});
-            // The marker, positioned at myposition
-            var marker = new google.maps.Marker({position: myposition, map: map});
             setMarkers(map);
 
             infoWindow = new google.maps.InfoWindow;
@@ -31,8 +29,8 @@
                     };
 
                     infoWindow.setPosition(pos);
-                    infoWindow.setContent('Location found.');
-                    infoWindow.open(map);
+                    // The marker, positioned at myposition
+                    var marker = new google.maps.Marker({position: pos, map: map});
                     map.setCenter(pos);
                 }, function () {
                     handleLocationError(true, infoWindow, map.getCenter());
