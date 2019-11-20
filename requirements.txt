@@ -55,7 +55,6 @@ nltk==3.4.1
 numpydoc==0.7.0
 oauth==1.0.1
 olefile==0.45.1
-onboard==1.4.1
 packaging==19.2
 pandocfilters==1.4.2
 parso==0.1.1
