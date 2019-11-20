@@ -80,7 +80,6 @@ pyOpenSSL==19.1.0
 pyparsing==2.4.3
 pyRFC3339==1.0
 pytest==5.2.2
-python-apt==1.6.4
 python-dateutil==2.6.1
 python-debian==0.1.32
 pytz==2018.3
