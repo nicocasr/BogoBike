@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Share
+{% endblock %}
+
+{% block main %}
+    <h2>Complete this form</h2>
+    <br>
+
+    <form action="/share" method="post" enctype=multipart/form-data >
+        <div class="form-group">
+            <label class="mdb-main-label">Select type of activity</label>
+            <select required class="custom-select" id="typeOfActivity" name="typeOfActivity">
+                <option value="">Select option</option>
+                <option value="bike trip">Bike Trip</option>
+                <option value="event">Event</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <label>Start Point</label>
+                <input type="text" name="startPoint" class="form-control" placeholder="Where it starts" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationServer02">End Point</label>
+                <input type="text" name="endPoint" class="form-control" placeholder="Where it ends" required>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="validationServer02">Organizer</label>
+                <input type="text" name="organizer" class="form-control" placeholder="Organizer" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="mdb-main-label">*Complexity of the trip</label>
+            <select class="custom-select" name="complexity" id="complexity">
+                <option value="">Select option for bike trip</option>
+                <option value="rookie">Rookie</option>
+                <option value="expert">Expert</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="mdb-main-label">Date and time of activity</label>
+            <input type="datetime-local" name="date" required>
+        </div>
+        <div class="form-group">
+            <label class="mdb-main-label">Description</label>
+            <textarea class="form-control" name="description" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="mdb-main-label">Add an image if you want</label>
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="file" name="file">
+                <label class="custom-file-label" for="file">Choose file</label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="container">
+                <button class="btn btn-primary" type="submit" id="share">Share</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        $('#file').on('change', function () {
+            //get the file name
+            var fileName = $(this).val().replace('C:\\fakepath\\', "");
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
+
+
+        $(document).ready(function () {
+            //alert('Document is ready');
+            $('#typeOfActivity').change(function () {
+                var sel = $(this).val();
+                if (sel == 'bike trip') $('#complexity').show();
+            });
+
+            $('#share').click(function () {
+                var sel = $('#typeOfActivity').val();
+                if (sel == 'bike trip') {
+                    if ($('#complexity').val() == '') {
+                        alert('Please fill the complexity');
+                        return false; //prevent submit from submitting
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}

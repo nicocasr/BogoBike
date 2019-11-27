@@ -1,11 +1,17 @@
+import io
+import base64
 import os
 import uuid
+from dateutil.parser import parse
+from datetime import datetime
 
 from Notifications import Notifications
-from flask import Flask, session, render_template, request, redirect, jsonify
+from flask import Flask, session, render_template, request, redirect, jsonify, flash
 from cs50 import SQL
+import sqlite3
 
 from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.utils import secure_filename
 
 from helpers import login_required, apology
 
@@ -13,17 +19,16 @@ from helpers import login_required, apology
 app = Flask(__name__)
 app.secret_key = 'llavenicocifrada'
 
-
 # Configure database
 db = SQL('sqlite:///bogobike.db')
 
 # Notifications x user
 allnotifications = Notifications()
 
-
 if __name__ == '__main__':
     # app.run(ssl_context='adhoc')
     app.run()
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -48,7 +53,7 @@ def index():
     # Query user's info
     # userInfo = db.execute('SELECT * FROM users WHERE id = :userId', userId=userId)
     shops = db.execute('SELECT * FROM shops')
-    return render_template("index.html", shops=shops)   # userInfo=userInfo)
+    return render_template("index.html", shops=shops)  # userInfo=userInfo)
 
 
 # Log user in
@@ -138,8 +143,9 @@ def register():
         longitude = -74.084726
 
         # Insert the user in de db generating a hashed password
-        result = db.execute('INSERT INTO users(name, city, mail, username, hash, latitude, longitude) VALUES (:name, :city, :mail, :username, :hashed, :latitude, :longitude)',
-                            name=name, city=city, mail=mail, username=username, hashed=hashed, latitude=latitude, longitude=longitude)
+        result = db.execute(
+            'INSERT INTO users(name, city, mail, username, hash, latitude, longitude) VALUES (:name, :city, :mail, :username, :hashed, :latitude, :longitude)',
+            name=name, city=city, mail=mail, username=username, hashed=hashed, latitude=latitude, longitude=longitude)
 
         # If the user is already in the db then apology
         if not result:
@@ -176,6 +182,7 @@ def checkUsername():
         else:
             return jsonify(False)
 
+
 # Show shops
 @app.route('/shop', methods=['GET', 'POST'])
 @login_required
@@ -184,6 +191,78 @@ def shop():
     userId = session['user_id']
     shops = db.execute('SELECT * FROM shops')
     return render_template('shop.html', shops=shops)
+
+
+# Show Activities
+@app.route('/activities', methods=['GET', 'POST'])
+@login_required
+def activities():
+    activities = db.execute('SELECT * FROM activities')
+
+    return render_template('activities.html', activities=activities)
+
+
+# Show shops
+@app.route('/share', methods=['GET', 'POST'])
+@login_required
+def share():
+    userId = session['user_id']
+    if request.method == 'POST':
+        # Form Fields
+        if not request.form.get('typeOfActivity'):
+            return apology("must provide a type of activity")
+        if not request.form.get('startPoint'):
+            return apology("must provide a startPoint")
+        if not request.form.get('endPoint'):
+            return apology("must provide an endPoint")
+        if not request.form.get('organizer'):
+            return apology("must provide an organizer")
+        if request.form.get('typeOfActivity') == 'bike trip':
+            if not request.form.get('complexity'):
+                return apology("must provide a complexity for the trip")
+        if not request.form.get('date'):
+            return apology("must provide a date")
+
+        typeOfActivity = request.form.get('typeOfActivity')
+        startPoint = request.form.get('startPoint')
+        endPoint = request.form.get('endPoint')
+        organizer = request.form.get('organizer')
+        complexity = request.form.get('complexity')
+
+        activityDate = parse(request.form.get('date'))
+        today = datetime.now()
+        if activityDate < today:
+            return apology("the date provided is over")
+
+        description = request.form.get('description')
+
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        if file and not allowed_file(file.filename):
+            flash('File not allowed')
+            return redirect(request.url)
+        file.filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
+        #filename = secure_filename(file.filename)
+        file.save(os.path.join('static/eventimages', file.filename))
+
+        result = db.execute(
+            'INSERT INTO activities(typeOfActivity, startPoint, endPoint, complexity, organizer, idUser, description, activityDate, file) VALUES (:typeOfActivity, :startPoint, :endPoint, :complexity, :organizer, :idUser, :description, :activityDate, :file)',
+            typeOfActivity=typeOfActivity, startPoint=startPoint, endPoint=endPoint, complexity=complexity, organizer=organizer, idUser=userId, description=description, activityDate=activityDate, file=file.filename)
+
+        if not result:
+            return apology('could not share the activity', 400)
+
+        return redirect('/activities')
+    return render_template('share.html')
+
+
+# It will tell if the file sent to the share function is allowed or not
+def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 # Send notifications

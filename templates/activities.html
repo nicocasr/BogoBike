@@ -1,0 +1,216 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Activities
+{% endblock %}
+
+{% block main %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseOne"
+                                   aria-expanded="false" aria-controls="collapseOne">
+                                    BIKE TRIPS
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingOne" data-parent="#accordion">
+
+
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="subheadingOne">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                               href="#subcollapseOne"
+                                               aria-expanded="false" aria-controls="subcollapseOne">
+                                                Rookie
+                                            </a>
+                                            <div id="subcollapseOne" class="panel-collapse collapse in"
+                                                 role="tabpanel" aria-labelledby="subheadingOne">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Activity Date</th>
+                                                            <th>Start Point</th>
+                                                            <th>End Point</th>
+                                                            <th>Organizer</th>
+                                                            <th>Description</th>
+                                                            <th>Image of reference</th>
+                                                        </tr>
+                                                        {% for k in range(activities|length) %}
+                                                            {% if activities[k]['typeOfActivity'] == 'bike trip' and activities[k]['complexity'] == 'rookie' %}
+                                                                <tr>
+                                                                    <td>
+                                                                        {{ activities[k]["activityDate"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["startPoint"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["endPoint"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["organizer"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["description"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        <img src="static/eventimages/{{ activities[k]["file"] }}">
+                                                                    </td>
+                                                                </tr>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="subheadingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                               href="#subcollapseTwo"
+                                               aria-expanded="false" aria-controls="subcollapseTwo">
+                                                Expert
+                                            </a>
+                                            <div id="subcollapseTwo" class="panel-collapse collapse in"
+                                                 role="tabpanel" aria-labelledby="subheadingTwo">
+                                                <div class="panel-body">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <th>Activity Date</th>
+                                                            <th>Start Point</th>
+                                                            <th>End Point</th>
+                                                            <th>Organizer</th>
+                                                            <th>Description</th>
+                                                            <th>Image of reference</th>
+                                                        </tr>
+                                                        {% for k in range(activities|length) %}
+                                                            {% if activities[k]['typeOfActivity'] == 'bike trip' and activities[k]['complexity'] == 'expert' %}
+                                                                <tr>
+                                                                    <td>
+                                                                        {{ activities[k]["activityDate"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["startPoint"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["endPoint"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["organizer"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        {{ activities[k]["description"] }}
+                                                                    </td>
+                                                                    <td>
+                                                                        <img src="static/eventimages/{{ activities[k]["file"] }}">
+                                                                    </td>
+                                                                </tr>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    EVENTS
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="panel-body">
+                                <table class="table">
+                                    <tr>
+                                        <th>Activity Date</th>
+                                        <th>Start Point</th>
+                                        <th>End Point</th>
+                                        <th>Organizer</th>
+                                        <th>Description</th>
+                                        <th>Image of reference</th>
+                                    </tr>
+                                    {% for k in range(activities|length) %}
+                                        {% if activities[k]['typeOfActivity'] == 'event' %}
+                                            <tr>
+                                                <td>
+                                                    {{ activities[k]["activityDate"] }}
+                                                </td>
+                                                <td>
+                                                    {{ activities[k]["startPoint"] }}
+                                                </td>
+                                                <td>
+                                                    {{ activities[k]["endPoint"] }}
+                                                </td>
+                                                <td>
+                                                    {{ activities[k]["organizer"] }}
+                                                </td>
+                                                <td>
+                                                    {{ activities[k]["description"] }}
+                                                </td>
+                                                <td>
+                                                    <img class="resize" src="static/eventimages/{{ activities[k]["file"] }}">
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Section 3
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="panel-body">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent nisl lorem, dictum
+                                    id pellentesque at, vestibulum ut arcu. Curabitur erat libero, egestas eu tincidunt
+                                    ac, rutrum ac justo. Vivamus condimentum laoreet lectus, blandit posuere tortor
+                                    aliquam vitae. Curabitur molestie eros. </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="text-center">
+            <button class="btn btn-primary" type="submit" id="new_event" onclick="window.location='/share'">Share New
+                Event
+            </button>
+        </div>
+    </div>
+
+
+{% endblock %}
